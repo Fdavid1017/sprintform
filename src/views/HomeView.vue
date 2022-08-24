@@ -1,17 +1,9 @@
 <template>
-  <div class="home">
-    <div class="btn">button</div>
+  <div class="container">
+    HOME
   </div>
 </template>
 
-<script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+<script setup></script>
 
-export default {
-  name: "HomeView",
-  components: {
-    HelloWorld,
-  },
-};
-</script>
+<style scoped lang="scss"></style>
