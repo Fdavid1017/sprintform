@@ -8,12 +8,17 @@
           <div class="logo-text">spending tracker tool</div>
         </div>
       </router-link>
+
+      <div class="">
+        <language-switcher />
+      </div>
     </div>
   </nav>
 </template>
 
 <script setup>
 import logo from "@/assets/images/logo.svg";
+import LanguageSwitcher from "@/components/shared/LanguageSwitcher";
 </script>
 
 <style scoped lang="scss">
