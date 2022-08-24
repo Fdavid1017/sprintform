@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-import NavbarComponent from "@/components/shared/NavbarComponent";
+import NavbarComponent from "@/components/NavbarComponent";
 </script>
 
 <style lang="scss">

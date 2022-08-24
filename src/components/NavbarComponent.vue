@@ -1,8 +1,8 @@
 <template>
-  <nav class="navbar navbar-light mb-4 shadow">
+  <nav class="navbar navbar-light mb-5 shadow">
     <div class="container-fluid">
       <router-link to="/" class="navbar-brand d-flex align-items-center">
-        <font-awesome-icon icon="fa-solid fa-database" size="xl" />
+        <font-awesome-icon icon="fa-solid fa-coins" size="xl" />
         <div class="ms-2 d-flex flex-column justify-content-start">
           <img :src="logo" alt="sprintform Logo" class="logo" />
           <div class="logo-text">spending tracker tool</div>
@@ -18,11 +18,11 @@
 
 <script setup>
 import logo from "@/assets/images/logo.svg";
-import LanguageSwitcher from "@/components/shared/LanguageSwitcher";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 </script>
 
 <style scoped lang="scss">
-@import "src/assets/scss/variables";
+@import "../assets/scss/variables";
 
 .navbar {
   background-color: $gray;
