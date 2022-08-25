@@ -25,7 +25,7 @@
       </div>
     </div>
 
-    <div class="fw-bold fs-3">
+    <div class="fw-bold fs-4">
       {{ props.transaction.sum.toLocaleString(locale) }}
       {{ getCurrencySuffix(props.transaction.currency) }}
     </div>
@@ -42,16 +42,14 @@ const props = defineProps({
   transaction: {
     type: Object,
     required: true,
-    default: function () {
-      return {
-        id: "0",
-        summary: "",
-        category: "",
-        sum: 0,
-        currency: "",
-        paid: "",
-      };
-    },
+    default: () => ({
+      id: "0",
+      summary: "",
+      category: "",
+      sum: 0,
+      currency: "",
+      paid: "",
+    }),
   },
 });
 
