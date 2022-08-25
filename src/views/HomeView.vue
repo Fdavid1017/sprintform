@@ -10,13 +10,26 @@
 
     <transaction-filter v-model="filter" class="mb-5" />
 
-    <div class="mb-3 fw-bold opacity-75">
-      {{
-        $t("home.transactions", {
-          show: filteredTransactions.length,
-          total: transactions.length,
-        })
-      }}
+    <div
+      class="d-flex flex-column flex-sm-row align-items-center justify-content-between mb-3"
+    >
+      <div class="fw-bold opacity-75">
+        {{
+          $t("home.transactions", {
+            show: filteredTransactions.length,
+            total: transactions.length,
+          })
+        }}
+      </div>
+
+      <transaction-modal
+        :transaction-to-edit="transactionToEdit"
+        @transactionAdd="transactionAdd"
+      >
+        <button type="button" class="btn btn-primary mt-3 mt-sm-0">
+          {{ $t("modal.add") }}
+        </button>
+      </transaction-modal>
     </div>
 
     <transaction-card
@@ -24,6 +37,7 @@
       :key="transaction.id"
       :transaction="transaction"
       class="mb-4"
+      @click="transactionToEdit = transaction"
     ></transaction-card>
   </div>
 </template>
@@ -33,6 +47,8 @@ import { computed, onMounted, ref } from "vue";
 import { getTransactions } from "@/services/transactionService";
 import TransactionCard from "@/components/TransactionCard";
 import TransactionFilter from "@/components/TransactionFilter";
+import TransactionModal from "@/components/TransactionModal";
+import TransactionCategoryEnum from "@/enums/TransactionCategoryEnum";
 
 const transactions = ref([]);
 const isLoading = ref(false);
@@ -42,6 +58,7 @@ const filter = ref({
   min: 0,
   max: 0,
 });
+const transactionToEdit = ref(undefined);
 
 onMounted(() => {
   isLoading.value = true;
@@ -69,10 +86,38 @@ const filteredTransactions = computed(() => {
     ? textValid
     : textValid.filter((x) => x.sum >= filter.value.min);
 
-  return !filter.value.max
+  const maxValid = !filter.value.max
     ? minValid
     : minValid.filter((x) => x.sum <= filter.value.max);
+
+  return maxValid.sort(
+    (a, b) => new Date(b.paid).getTime() - new Date(a.paid).getTime()
+  );
 });
+
+function transactionAdd(transaction) {
+  if (transaction.id) {
+    const transactionIndex = transactions.value
+      .map((x) => x.id)
+      .indexOf(transaction.id);
+
+    if (transactionIndex !== -1) {
+      transactions.value[transactionIndex] = transaction;
+      return;
+    }
+  }
+
+  const transactionValue = {
+    id: Math.round(Math.random() * 1000000),
+    summary: transaction.summary,
+    category: TransactionCategoryEnum[transaction.category],
+    sum: transaction.sum,
+    currency: transaction.currency,
+    paid: new Date(),
+  };
+
+  transactions.value.push(transactionValue);
+}
 </script>
 
 <style scoped lang="scss"></style>

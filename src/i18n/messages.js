@@ -13,6 +13,26 @@ const messages = {
     home: {
       transactions: "Showing {show} transaction from the {total}",
     },
+    modal: {
+      add: "New transaction",
+      title: "Add new transaction",
+      close: "Close",
+      save: "Save",
+      summary: "Summary",
+      amount: "Amount",
+    },
+    category: {
+      housing: "Housing",
+      travel: "Travel",
+      food: "Food",
+      utilities: "Utilities",
+      insurance: "Insurance",
+      healthcare: "Healthcare",
+      financial: "Financial",
+      lifestyle: "Lifestyle",
+      entertainment: "Entertainment",
+      miscellaneous: "Miscellaneous",
+    },
   },
   hu: {
     error: {
@@ -27,6 +47,26 @@ const messages = {
     },
     home: {
       transactions: "{show} tranzakció mutatása a(z) {total}-ből",
+    },
+    modal: {
+      add: "Új tranzakció",
+      title: "Tranzakció hozzáadása",
+      close: "Bezárás",
+      save: "Mentés",
+      summary: "Összegzés",
+      amount: "Összeg",
+    },
+    category: {
+      housing: "Lakás",
+      travel: "Utazás",
+      food: "Étel",
+      utilities: "Szolgáltatások",
+      insurance: "Biztosítás",
+      healthcare: "Egészségügy",
+      financial: "Pénzügy",
+      lifestyle: "Életvitel",
+      entertainment: "Szórakozás",
+      miscellaneous: "Egyéb",
     },
   },
 };

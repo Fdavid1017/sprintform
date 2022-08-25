@@ -81,10 +81,16 @@ export default {
 
 .transaction-card {
   border-top: 8px solid;
+  cursor: pointer;
+  transition: all 0.2s ease-out;
 
   @include media-breakpoint-up(sm) {
     border-top: unset;
     border-left: 8px solid;
+  }
+
+  &:hover {
+    transform: scale(1.025);
   }
 }
 </style>
