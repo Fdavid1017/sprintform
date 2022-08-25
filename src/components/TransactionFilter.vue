@@ -5,7 +5,7 @@
     </div>
 
     <div class="row w-100 mx-0">
-      <div class="col-4 ps-0">
+      <div class="col-12 col-md-12 col-lg-4 p-0 pe-lg-2">
         <div class="form-floating mb-3">
           <input
             v-model="filterValue.text"
@@ -17,7 +17,7 @@
           <label for="searchText">{{ $t("form.search") }}</label>
         </div>
       </div>
-      <div class="col-4">
+      <div class="col-12 col-md-6 col-lg-4 p-0 pe-md-2 ps-lg-2">
         <div class="form-floating mb-3">
           <input
             v-model="filterValue.min"
@@ -29,7 +29,7 @@
           <label for="searchMin">{{ $t("form.min") }}</label>
         </div>
       </div>
-      <div class="col-4 pe-0">
+      <div class="col-12 col-md-6 col-lg-4 p-0 ps-md-2">
         <div class="form-floating mb-3">
           <input
             v-model="filterValue.max"

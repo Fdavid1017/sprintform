@@ -1,9 +1,11 @@
 <template>
   <div
-    class="transaction-card shadow p-3 d-flex align-items-center justify-content-between"
+    class="transaction-card shadow p-3 d-flex flex-column flex-sm-row align-items-center justify-content-between"
     :style="{ borderColor: borderColor }"
   >
-    <div class="d-flex align-items-center">
+    <div
+      class="d-flex flex-column flex-sm-row align-items-center text-center text-sm-start"
+    >
       <transaction-category-icon
         :category="props.transaction.category"
         class="me-2"
@@ -73,7 +75,16 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+
 .transaction-card {
-  border-left: 8px solid;
+  border-top: 8px solid;
+
+  @include media-breakpoint-up(sm) {
+    border-top: unset;
+    border-left: 8px solid;
+  }
 }
 </style>
