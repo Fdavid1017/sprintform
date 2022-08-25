@@ -12,6 +12,7 @@ const messages = {
     },
     home: {
       transactions: "Showing {show} transaction from the {total}",
+      noTransaction: "No transaction found",
     },
     modal: {
       add: "New transaction",
@@ -47,6 +48,7 @@ const messages = {
     },
     home: {
       transactions: "{show} tranzakció mutatása a(z) {total}-ből",
+      noTransaction: "Nem található tranzakció",
     },
     modal: {
       add: "Új tranzakció",

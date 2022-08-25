@@ -39,6 +39,13 @@
       class="mb-4"
       @click="transactionToEdit = transaction"
     ></transaction-card>
+
+    <div
+      v-if="filteredTransactions.length === 0"
+      class="text-sm-center fw-bold opacity-50"
+    >
+      {{ $t("home.noTransaction") }}
+    </div>
   </div>
 </template>
 

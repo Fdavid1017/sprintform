@@ -62,8 +62,8 @@ const props = defineProps({
     required: true,
     default: () => ({
       text: "",
-      min: 0,
-      max: 0,
+      min: null,
+      max: null,
     }),
   },
 });

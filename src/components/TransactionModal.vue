@@ -1,10 +1,8 @@
 <template>
-  <!-- Button trigger modal -->
   <div data-bs-toggle="modal" data-bs-target="#transactionModal">
     <slot></slot>
   </div>
 
-  <!-- Modal -->
   <div
     class="modal fade"
     id="transactionModal"
