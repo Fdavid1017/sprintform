@@ -7,6 +7,7 @@ import com.fabry.david.sprintform.services.TransactionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +25,7 @@ public class TransactionController {
     }
 
     @GetMapping(path = "/{id}")
-    public Optional<Transaction> getTransactionById(@PathVariable("id") Long id) {
+    public Optional<Transaction> getTransactionById(@PathVariable("id") BigInteger id) {
         return transactionService.findTransactionById(id);
     }
 
@@ -43,5 +44,19 @@ public class TransactionController {
     @PostMapping(path = "")
     public Transaction createTransaction(@RequestBody TransactionInput transactionInput) {
         return transactionService.createTransaction(transactionInput);
+    }
+
+    // PUT
+
+    @PutMapping(path = "/{id}")
+    public Transaction editTransaction(@PathVariable("id") BigInteger id, @RequestBody TransactionInput transactionInput) {
+        return transactionService.editTransaction(id, transactionInput);
+    }
+
+    // DELETE
+
+    @DeleteMapping(path = "/{id}")
+    public void removeTransaction(@PathVariable("id") BigInteger id) {
+        transactionService.removeTransaction(id);
     }
 }

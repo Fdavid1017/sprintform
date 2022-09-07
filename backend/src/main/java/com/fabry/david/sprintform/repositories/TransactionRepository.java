@@ -13,7 +13,7 @@ import java.util.Optional;
 public interface TransactionRepository extends MongoRepository<Transaction, BigInteger> {
     public List<Transaction> findAll();
 
-    public Optional<Transaction> findById(Long id);
+    public Optional<Transaction> findById(BigInteger id);
 
     public List<Transaction> findBySummaryLike(String summary);
 }

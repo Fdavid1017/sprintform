@@ -9,6 +9,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -29,7 +30,7 @@ public class TransactionService {
         return transactionRepository.findAll();
     }
 
-    public Optional<Transaction> findTransactionById(Long id) {
+    public Optional<Transaction> findTransactionById(BigInteger id) {
         return transactionRepository.findById(id);
     }
 
@@ -88,5 +89,29 @@ public class TransactionService {
         transactionRepository.save(transaction);
 
         return transaction;
+    }
+
+    public Transaction editTransaction(BigInteger id, TransactionInput transactionInput) {
+        Optional<Transaction> transaction = findTransactionById(id);
+
+        if (transaction.isPresent()) {
+            Transaction t = transaction.get();
+            t.setSummary(transactionInput.getSummary());
+            t.setCategory(transactionInput.getCategory());
+            t.setSum(transactionInput.getSum());
+            t.setCurrency(transactionInput.getCurrency());
+
+            transactionRepository.save(t);
+
+            return t;
+        }
+
+        return null;
+    }
+
+    public void removeTransaction(BigInteger id) {
+        Optional<Transaction> transaction = findTransactionById(id);
+
+        transaction.ifPresent(transactionRepository::delete);
     }
 }
