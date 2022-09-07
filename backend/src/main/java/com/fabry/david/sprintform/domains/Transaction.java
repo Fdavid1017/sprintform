@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 
+import java.math.BigInteger;
 import java.util.Date;
 
 @Data
@@ -13,17 +14,11 @@ import java.util.Date;
 @AllArgsConstructor
 public class Transaction {
     @Id
-    public Long id;
+    public BigInteger id;
 
     public String summary;
     public TransactionCategory category;
     public Float sum;
     public String currency;
     public Date paid;
-
-//    "summary": "vonaljegy Oktogontól Nyugatiba",
-//            "category": "travel",
-//            "sum": 350,
-//            "currency": "HUF",
-//            "paid": "2022-04-21T10:54:00Z"
 }

@@ -1,6 +1,7 @@
 package com.fabry.david.sprintform.services;
 
 import com.fabry.david.sprintform.domains.Transaction;
+import com.fabry.david.sprintform.helpers.TransactionInput;
 import com.fabry.david.sprintform.helpers.TransactionSearchInput;
 import com.fabry.david.sprintform.repositories.TransactionRepository;
 import lombok.RequiredArgsConstructor;
@@ -8,9 +9,12 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import org.modelmapper.ModelMapper;
 
 import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.*;
 
@@ -18,6 +22,8 @@ import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatc
 @RequiredArgsConstructor
 public class TransactionService {
     private final TransactionRepository transactionRepository;
+
+    private final ModelMapper modelMapper;
 
     public List<Transaction> findAllTransaction() {
         return transactionRepository.findAll();
@@ -74,5 +80,13 @@ public class TransactionService {
         }
 
         return transactions;
+    }
+
+    public Transaction createTransaction(TransactionInput transactionInput) {
+        Transaction transaction = modelMapper.map(transactionInput, Transaction.class);
+        transaction.setPaid(new Date());
+        transactionRepository.save(transaction);
+
+        return transaction;
     }
 }

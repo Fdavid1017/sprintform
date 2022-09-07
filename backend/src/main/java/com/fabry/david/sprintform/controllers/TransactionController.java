@@ -1,6 +1,7 @@
 package com.fabry.david.sprintform.controllers;
 
 import com.fabry.david.sprintform.domains.Transaction;
+import com.fabry.david.sprintform.helpers.TransactionInput;
 import com.fabry.david.sprintform.helpers.TransactionSearchInput;
 import com.fabry.david.sprintform.services.TransactionService;
 import lombok.RequiredArgsConstructor;
@@ -35,5 +36,12 @@ public class TransactionController {
     @GetMapping(path = "/search")
     public List<Transaction> searchTransactions(@RequestBody TransactionSearchInput transactionSearchInput) {
         return transactionService.searchTransaction(transactionSearchInput);
+    }
+
+    // POST
+
+    @PostMapping(path = "")
+    public Transaction createTransaction(@RequestBody TransactionInput transactionInput) {
+        return transactionService.createTransaction(transactionInput);
     }
 }
