@@ -1,7 +1,6 @@
 <template>
   <div
-    class="transaction-card shadow p-3 d-flex flex-column flex-sm-row align-items-center justify-content-between"
-    :style="{ borderColor: borderColor }"
+    class="transaction-card d-flex flex-column flex-sm-row align-items-center justify-content-between"
   >
     <div
       class="d-flex flex-column flex-sm-row align-items-center text-center text-sm-start"
@@ -11,11 +10,11 @@
         class="me-2"
       />
 
-      <div class="">
-        <div class="fw-bold">
+      <div>
+        <div class="transaction-summary">
           {{ props.transaction.summary }}
         </div>
-        <div class="">
+        <div class="transaction-paid">
           {{
             paidDate.toLocaleDateString(locale, {
               year: "numeric",
@@ -27,7 +26,7 @@
       </div>
     </div>
 
-    <div class="fw-bold fs-4">
+    <div class="transaction-amount">
       {{ props.transaction.sum.toLocaleString(locale) }}
       {{ getCurrencySuffix(props.transaction.currency) }}
     </div>
@@ -55,7 +54,7 @@ const props = defineProps({
   },
 });
 
-const borderColor = computed(() => {
+const color = computed(() => {
   return getTransactionCategoryColor(props.transaction.category);
 });
 
@@ -78,19 +77,28 @@ export default {
 @import "node_modules/bootstrap/scss/functions";
 @import "node_modules/bootstrap/scss/variables";
 @import "node_modules/bootstrap/scss/mixins";
+@import "../assets/scss/variables";
+@import "../assets/scss/mixins";
 
 .transaction-card {
-  border-top: 8px solid;
-  cursor: pointer;
-  transition: all 0.2s ease-out;
+  @include panel(v-bind(color));
 
-  @include media-breakpoint-up(sm) {
-    border-top: unset;
-    border-left: 8px solid;
-  }
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.15s ease-out;
 
   &:hover {
-    transform: scale(1.025);
+    box-shadow: 8px 8px 0px v-bind(color);
+  }
+
+  .transaction-summary,
+  .transaction-amount {
+    font-size: 25px;
+    font-weight: 700;
+  }
+
+  .transaction-paid {
+    font-size: 18px;
   }
 }
 </style>

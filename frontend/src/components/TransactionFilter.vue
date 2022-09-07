@@ -1,50 +1,31 @@
 <template>
-  <div class="filter-container shadow p-3">
-    <div class="fw-bold fs-5 mb-4">
-      {{ $t("form.search") }}
-    </div>
-
-    <div class="row w-100 mx-0">
+  <div class="filter-container">
+    <div class="row w-100 mx-0 mb-4">
       <div class="col-12 col-md-12 col-lg-4 p-0 pe-lg-2">
-        <div class="form-floating mb-3">
-          <input
-            v-model="filterValue.text"
-            type="text"
-            class="form-control"
-            id="searchText"
-            :placeholder="$t('form.search')"
-          />
-          <label for="searchText">{{ $t("form.search") }}</label>
-        </div>
+        <my-input
+          v-model="filterValue.text"
+          :label="$t('form.search')"
+          id="search-text"
+        />
       </div>
       <div class="col-12 col-md-6 col-lg-4 p-0 pe-md-2 ps-lg-2">
-        <div class="form-floating mb-3">
-          <input
-            v-model="filterValue.min"
-            type="number"
-            class="form-control"
-            id="searchMin"
-            :placeholder="$t('form.min')"
-          />
-          <label for="searchMin">{{ $t("form.min") }}</label>
-        </div>
+        <my-input
+          v-model="filterValue.min"
+          :label="$t('form.min')"
+          id="search-min"
+        />
       </div>
       <div class="col-12 col-md-6 col-lg-4 p-0 ps-md-2">
-        <div class="form-floating mb-3">
-          <input
-            v-model="filterValue.max"
-            type="number"
-            class="form-control"
-            id="searchMax"
-            :placeholder="$t('form.max')"
-          />
-          <label for="searchMax">{{ $t("form.max") }}</label>
-        </div>
+        <my-input
+          v-model="filterValue.max"
+          :label="$t('form.max')"
+          id="search-max"
+        />
       </div>
     </div>
 
     <div class="d-flex justify-content-end">
-      <button class="btn btn-outline-primary" @click="resetFilter()">
+      <button class="my-button" @click="resetFilter()">
         {{ $t("form.clear") }}
       </button>
     </div>
@@ -52,6 +33,7 @@
 </template>
 
 <script setup>
+import MyInput from "@/components/MyInput";
 import { computed, defineProps, defineEmits } from "vue";
 
 const emits = defineEmits(["update:modelValue"]);
@@ -82,4 +64,13 @@ function resetFilter() {
 }
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+@import "../assets/scss/variables.scss";
+@import "../assets/scss/mixins.scss";
+
+.filter-container {
+  @include panel();
+
+  padding: 10px;
+}
+</style>

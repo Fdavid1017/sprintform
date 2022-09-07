@@ -26,7 +26,7 @@
         :transaction-to-edit="transactionToEdit"
         @transactionAdd="transactionAdd"
       >
-        <button type="button" class="btn btn-primary mt-3 mt-sm-0">
+        <button type="button" class="my-button mt-3 mt-sm-0">
           {{ $t("modal.add") }}
         </button>
       </transaction-modal>
@@ -62,8 +62,8 @@ const isLoading = ref(false);
 const hasError = ref(false);
 const filter = ref({
   text: "",
-  min: 0,
-  max: 0,
+  min: null,
+  max: null,
 });
 const transactionToEdit = ref(undefined);
 

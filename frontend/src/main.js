@@ -10,7 +10,7 @@ import { createI18n } from "vue-i18n";
 import messages from "@/i18n/messages";
 
 fontawesome();
-axios.defaults.baseURL = "https://development.sprintform.com";
+axios.defaults.baseURL = "http://localhost:8080/api";
 
 const i18n = createI18n({
   locale: "en",

@@ -1,6 +1,6 @@
 <template>
-  <nav class="navbar navbar-light mb-5 shadow">
-    <div class="container-fluid">
+  <nav class="navbar navbar-light mb-5">
+    <div class="container">
       <router-link to="/" class="navbar-brand d-flex align-items-center">
         <font-awesome-icon icon="fa-solid fa-coins" size="xl" />
         <div class="ms-2 d-flex flex-column justify-content-start">
@@ -25,19 +25,18 @@ import LanguageSwitcher from "@/components/LanguageSwitcher";
 @import "../assets/scss/variables";
 
 .navbar {
-  background-color: $gray;
+  background-color: transparent;
 
   .navbar-brand {
-    color: $black;
+    color: $blue;
 
     .logo {
       height: 30px;
-      filter: grayscale(1);
       width: fit-content;
     }
 
     .logo-text {
-      color: $black;
+      color: $blue;
       font-size: 11px;
     }
   }

@@ -1,0 +1,19 @@
+@import "variables.scss";
+
+@mixin panel-base($color: $black) {
+  background: $white;
+  border: 2px solid $color;
+  border-radius: 10px;
+}
+
+@mixin panel($color: $black) {
+  @include panel-base($color);
+
+  box-shadow: 5px 5px 0px $color;
+}
+
+@mixin panel-small($color: $black) {
+  @include panel-base($color);
+
+  box-shadow: 2px 2px 0px $color;
+}
