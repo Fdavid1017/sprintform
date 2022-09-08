@@ -25,77 +25,63 @@
         </div>
 
         <div class="modal-body">
-          <div class="form-floating mb-4">
-            <input
+          <div class="mb-4">
+            <my-input
               v-model="values.summary"
+              :label="$t('modal.summary')"
               :maxlength="maxSummaryLength"
-              :class="{ 'is-invalid': errors.summary }"
+              :error="errors.summary"
               type="text"
-              class="form-control"
-              id="summaryInput"
-              :placeholder="$t('modal.summary')"
+              id="summary-input"
               required
             />
-            <label for="summaryInput">{{ $t("modal.summary") }}</label>
           </div>
 
           <div class="d-flex">
-            <div class="form-floating mb-4 w-75 me-2">
-              <input
+            <div class="mb-4 w-75 me-2">
+              <my-input
                 v-model="values.sum"
-                :class="{ 'is-invalid': errors.amount }"
+                :label="$t('modal.amount')"
+                :error="errors.amount"
                 type="number"
-                class="form-control"
-                id="amountInput"
-                :placeholder="$t('modal.amount')"
+                id="amount-input"
                 required
               />
-              <label for="amountInput">{{ $t("modal.amount") }}</label>
             </div>
 
-            <select
-              class="form-select mb-4 w-25"
-              required
-              v-model="values.currency"
-            >
-              <option
-                v-for="(value, key, index) in CurrencyEnum"
-                :key="key"
-                :selected="index === 0"
-                :value="key"
-              >
-                {{ value }}
-              </option>
-            </select>
+            <div class="mb-4 w-25">
+              <my-select
+                v-model="values.currency"
+                :options="currency"
+                label="Currency"
+                id="currency-input"
+                required
+              />
+            </div>
           </div>
 
-          <select
-            class="form-select mb-4 text-capitalize"
-            required
-            v-model="values.category"
-          >
-            <option
-              v-for="(value, key, index) in TransactionCategoryEnum"
-              :key="key"
-              :selected="index === 0"
-              :value="key"
-            >
-              {{ value }}
-            </option>
-          </select>
+          <div class="mb-4 w-100">
+            <my-select
+              v-model="values.category"
+              :options="categories"
+              label="Category"
+              id="category-input"
+              required
+            />
+          </div>
         </div>
 
         <div class="modal-footer">
           <button
             type="button"
-            class="btn btn-outline-danger"
+            class="my-button-error me-2"
             @click="closeModal()"
           >
             {{ $t("modal.close") }}
           </button>
           <button
             type="button"
-            class="btn btn-success"
+            class="my-button-success"
             @click="saveTransaction"
           >
             {{ $t("modal.save") }}
@@ -107,10 +93,12 @@
 </template>
 
 <script setup>
-import CurrencyEnum from "@/enums/CurrencyEnum";
 import TransactionCategoryEnum from "@/enums/TransactionCategoryEnum";
 import { defineEmits, defineProps, onMounted, ref, watch } from "vue";
 import { Modal } from "bootstrap";
+import MyInput from "./MyInput.vue";
+import MySelect from "./MySelect.vue";
+import CurrencyEnum from "@/enums/CurrencyEnum";
 
 const props = defineProps({
   transactionToEdit: {
@@ -129,6 +117,20 @@ watch(
   }
 );
 
+const currency = Object.keys(CurrencyEnum).map((key) => {
+  return {
+    key,
+    text: CurrencyEnum[key],
+  };
+});
+
+const categories = Object.keys(TransactionCategoryEnum).map((key) => {
+  return {
+    key,
+    text: TransactionCategoryEnum[key],
+  };
+});
+
 const maxSummaryLength = 100;
 
 const emits = defineEmits(["transactionAdd"]);
@@ -138,7 +140,7 @@ const values = ref({
   summary: "",
   sum: null,
   currency: "HUF",
-  category: "HOUSING",
+  category: "housing",
 });
 const errors = ref({ summary: false, amount: false });
 
@@ -187,4 +189,13 @@ function openModal() {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+@import "../assets/scss/variables.scss";
+@import "../assets/scss/mixins.scss";
+
+.modal-title {
+  font-weight: 700;
+  font-size: 25px;
+  color: $black;
+}
+</style>

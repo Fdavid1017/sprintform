@@ -28,7 +28,7 @@ public class TransactionController {
     }
 
     @GetMapping(path = "/{id}")
-    public Optional<Transaction> getTransactionById(@PathVariable("id") BigInteger id) {
+    public Optional<Transaction> getTransactionById(@PathVariable("id") String id) {
         return transactionService.findTransactionById(id);
     }
 
@@ -52,14 +52,14 @@ public class TransactionController {
     // PUT
 
     @PutMapping(path = "/{id}")
-    public Transaction editTransaction(@PathVariable("id") BigInteger id, @RequestBody TransactionInput transactionInput) {
+    public Transaction editTransaction(@PathVariable("id") String id, @RequestBody TransactionInput transactionInput) {
         return transactionService.editTransaction(id, transactionInput);
     }
 
     // DELETE
 
     @DeleteMapping(path = "/{id}")
-    public void removeTransaction(@PathVariable("id") BigInteger id) {
+    public void removeTransaction(@PathVariable("id") String id) {
         transactionService.removeTransaction(id);
     }
 }

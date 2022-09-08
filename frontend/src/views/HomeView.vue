@@ -22,14 +22,14 @@
         }}
       </div>
 
-      <!-- <transaction-modal
+      <transaction-modal
         :transaction-to-edit="transactionToEdit"
         @transactionAdd="transactionAdd"
       >
         <button type="button" class="my-button mt-3 mt-sm-0">
           {{ $t("modal.add") }}
         </button>
-      </transaction-modal> -->
+      </transaction-modal>
     </div>
 
     <transaction-card
@@ -40,12 +40,12 @@
       @click="transactionToEdit = transaction"
     ></transaction-card>
 
-    <!-- <div
-      v-if="filteredTransactions.length === 0"
+    <div
+      v-if="transactionsData?.content === 0"
       class="text-sm-center fw-bold opacity-50"
     >
       {{ $t("home.noTransaction") }}
-    </div> -->
+    </div>
 
     <data-pagination
       :current-page="transactionsData.pageNumber"
@@ -59,7 +59,11 @@
 <!-- eslint-disable no-unused-vars -->
 <script setup>
 import { onMounted, ref } from "vue";
-import { getTransactions } from "@/services/transactionService";
+import {
+  addTransaction,
+  getTransactions,
+  editTransaction,
+} from "@/services/transactionService";
 import TransactionCard from "@/components/TransactionCard";
 import TransactionFilter from "@/components/TransactionFilter";
 import TransactionModal from "@/components/TransactionModal";
@@ -88,7 +92,6 @@ function loadTransactions(page, size) {
   getTransactions(page, size)
     .then((data) => {
       transactionsData.value = data;
-      console.log(data);
     })
     .catch(() => {
       hasError.value = true;
@@ -104,16 +107,23 @@ function pageChange(page) {
 
 function transactionAdd(transaction) {
   console.log(transaction);
-  // if (transaction.id) {
-  //   const transactionIndex = transactions.value.content
-  //     .map((x) => x.id)
-  //     .indexOf(transaction.id);
+  if (transaction.id) {
+    // Edit transaction
+    editTransaction(transaction).then((data) => {
+      for (let i = 0; i < transactionsData.value.content.length; i++) {
+        if (transactionsData.value.content[i].id === data.id) {
+          transactionsData.value.content[i] = data;
+        }
+      }
+    });
 
-  //   if (transactionIndex !== -1) {
-  //     transactions.value.content[transactionIndex] = transaction;
-  //     return;
-  //   }
-  // }
+    return;
+  }
+
+  // Add transaction
+  addTransaction(transaction).then((data) => {
+    loadTransactions(0, transactionsData.value.size);
+  });
 
   // const transactionValue = {
   //   id: Math.round(Math.random() * 1000000),

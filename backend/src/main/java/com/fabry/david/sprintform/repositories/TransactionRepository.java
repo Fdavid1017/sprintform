@@ -12,10 +12,10 @@ import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
 
-public interface TransactionRepository extends MongoRepository<Transaction, BigInteger> {
+public interface TransactionRepository extends MongoRepository<Transaction, String> {
     public Page<Transaction> findAll(Pageable pageable);
 
-    public Optional<Transaction> findById(BigInteger id);
+    public Optional<Transaction> findById(String id);
 
     public Page<Transaction> findBySummaryLike(String summary, Pageable pageable);
 }

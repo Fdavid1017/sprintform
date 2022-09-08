@@ -1,15 +1,29 @@
 <template>
-  <div :class="{ error }">
+  <div class="">
     <label class="d-block" :for="id">{{ label }}</label>
-    <input class="w-100" :id="id" v-bind="$attrs" v-model="value" />
+    <select
+      v-model="value"
+      v-bind="$attrs"
+      :id="id"
+      class="text-capitalize w-100"
+    >
+      <option
+        v-for="option in options"
+        :key="option.key"
+        :selected="index === 0"
+        :value="option.key"
+      >
+        {{ option.text }}
+      </option>
+    </select>
   </div>
 </template>
 
+<!-- eslint-disable no-unused-vars -->
 <script setup>
 import { computed, defineProps, defineEmits } from "vue";
 
 const emits = defineEmits(["update:modelValue"]);
-
 const props = defineProps({
   modelValue: {
     type: [String, Number],
@@ -26,11 +40,11 @@ const props = defineProps({
     required: true,
     default: "input",
   },
-  error: {
-    type: Boolean,
-    required: false,
+  options: {
+    type: Array,
+    required: true,
     default: () => {
-      return false;
+      return [];
     },
   },
 });
@@ -51,31 +65,16 @@ label {
   color: $black;
 }
 
-input {
+select {
   @include panel-small();
   font-size: 18px;
-  padding: 5px 10px;
+  padding: 7.5px 10px;
   outline: none;
   transition: all 0.15s ease-in;
 
   &:hover,
   &:focus {
     box-shadow: 5px 5px 0px $black;
-  }
-}
-
-.error {
-  label {
-    color: $error;
-  }
-
-  input {
-    @include panel-small($error);
-
-    &:hover,
-    &:focus {
-      box-shadow: 5px 5px 0px $error;
-    }
   }
 }
 </style>

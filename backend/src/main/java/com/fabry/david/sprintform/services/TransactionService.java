@@ -32,7 +32,7 @@ public class TransactionService {
         return transactionRepository.findAll(pageable);
     }
 
-    public Optional<Transaction> findTransactionById(BigInteger id) {
+    public Optional<Transaction> findTransactionById(String id) {
         return transactionRepository.findById(id);
     }
 
@@ -91,7 +91,7 @@ public class TransactionService {
         return transaction;
     }
 
-    public Transaction editTransaction(BigInteger id, TransactionInput transactionInput) {
+    public Transaction editTransaction(String id, TransactionInput transactionInput) {
         Optional<Transaction> transaction = findTransactionById(id);
 
         if (transaction.isPresent()) {
@@ -109,7 +109,7 @@ public class TransactionService {
         return null;
     }
 
-    public void removeTransaction(BigInteger id) {
+    public void removeTransaction(String id) {
         Optional<Transaction> transaction = findTransactionById(id);
 
         transaction.ifPresent(transactionRepository::delete);

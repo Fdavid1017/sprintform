@@ -13,6 +13,7 @@
           v-model="filterValue.min"
           :label="$t('form.min')"
           id="search-min"
+          type="number"
         />
       </div>
       <div class="col-12 col-md-6 col-lg-4 p-0 ps-md-2">
@@ -20,6 +21,7 @@
           v-model="filterValue.max"
           :label="$t('form.max')"
           id="search-max"
+          type="number"
         />
       </div>
     </div>

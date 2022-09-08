@@ -25,3 +25,23 @@ export async function getTransactions(page = 0, size = 5) {
 
   return transactionsData;
 }
+
+export async function addTransaction(transaction) {
+  const data = await axios({
+    url: `/transactions`,
+    method: "POST",
+    data: transaction,
+  });
+
+  return data.data;
+}
+
+export async function editTransaction(transaction) {
+  const data = await axios({
+    url: `/transactions/${transaction.id}`,
+    method: "PUT",
+    data: transaction,
+  });
+
+  return data.data;
+}

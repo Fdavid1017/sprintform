@@ -27,21 +27,14 @@ import NavbarComponent from "@/components/NavbarComponent";
 }
 
 .my-button {
-  @include panel-small();
+  @include button-primary();
+}
 
-  $transition: all 0.15s ease-in;
+.my-button-success {
+  @include button-primary($success);
+}
 
-  font-size: 20px;
-  font-weight: 700;
-  padding: 5px 30px;
-  transition: $transition;
-  color: $black;
-  position: relative;
-  overflow: hidden;
-  z-index: 1;
-
-  &:hover {
-    box-shadow: 5px 5px 0px $black;
-  }
+.my-button-error {
+  @include button-primary($error);
 }
 </style>
