@@ -7,6 +7,8 @@ import com.fabry.david.sprintform.repositories.TransactionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
@@ -26,21 +28,19 @@ public class TransactionService {
 
     private final ModelMapper modelMapper;
 
-    public List<Transaction> findAllTransaction() {
-        return transactionRepository.findAll();
+    public Page<Transaction> findAllTransaction(Pageable pageable) {
+        return transactionRepository.findAll(pageable);
     }
 
     public Optional<Transaction> findTransactionById(BigInteger id) {
         return transactionRepository.findById(id);
     }
 
-    public List<Transaction> findTransactionBySummary(String summary) {
-        return transactionRepository.findBySummaryLike(summary);
+    public Page<Transaction> findTransactionBySummary(String summary, Pageable pageable) {
+        return transactionRepository.findBySummaryLike(summary, pageable);
     }
 
-    public List<Transaction> searchTransaction(TransactionSearchInput transactionSearchInput) {
-        System.out.println(transactionSearchInput.getPaidStart());
-
+    public Page<Transaction> searchTransaction(TransactionSearchInput transactionSearchInput, Pageable pageable) {
         Transaction t = new Transaction();
         t.setSummary(transactionSearchInput.getSummary());
         t.setCategory(transactionSearchInput.getCategory());
@@ -52,35 +52,35 @@ public class TransactionService {
                 .withMatcher("category", exact());
         Example<Transaction> exampleQuery = Example.of(t, matcher);
 
-        List<Transaction> transactions = transactionRepository.findAll(exampleQuery);
+        return transactionRepository.findAll(exampleQuery, pageable);
 
-        if (transactionSearchInput.getSumMin() != null) {
-            transactions = transactions
-                    .stream()
-                    .filter(transaction -> transaction.sum >= transactionSearchInput.getSumMin())
-                    .collect(Collectors.toList());
-        }
-        if (transactionSearchInput.getSumMax() != null) {
-            transactions = transactions
-                    .stream()
-                    .filter(transaction -> transaction.sum <= transactionSearchInput.getSumMax())
-                    .collect(Collectors.toList());
-        }
+//        if (transactionSearchInput.getSumMin() != null) {
+//            transactions = transactions
+//                    .stream()
+//                    .filter(transaction -> transaction.sum >= transactionSearchInput.getSumMin())
+//                    .collect(Collectors.toList());
+//        }
+//        if (transactionSearchInput.getSumMax() != null) {
+//            transactions = transactions
+//                    .stream()
+//                    .filter(transaction -> transaction.sum <= transactionSearchInput.getSumMax())
+//                    .collect(Collectors.toList());
+//        }
+//
+//        if (transactionSearchInput.getPaidStart() != null) {
+//            transactions = transactions
+//                    .stream()
+//                    .filter(transaction -> transaction.paid.getTime() >= transactionSearchInput.getPaidStart().getTime())
+//                    .collect(Collectors.toList());
+//        }
+//        if (transactionSearchInput.getPaidEnd() != null) {
+//            transactions = transactions
+//                    .stream()
+//                    .filter(transaction -> transaction.paid.getTime() <= transactionSearchInput.getPaidEnd().getTime())
+//                    .collect(Collectors.toList());
+//        }
 
-        if (transactionSearchInput.getPaidStart() != null) {
-            transactions = transactions
-                    .stream()
-                    .filter(transaction -> transaction.paid.getTime() >= transactionSearchInput.getPaidStart().getTime())
-                    .collect(Collectors.toList());
-        }
-        if (transactionSearchInput.getPaidEnd() != null) {
-            transactions = transactions
-                    .stream()
-                    .filter(transaction -> transaction.paid.getTime() <= transactionSearchInput.getPaidEnd().getTime())
-                    .collect(Collectors.toList());
-        }
-
-        return transactions;
+//        return transactions;
     }
 
     public Transaction createTransaction(TransactionInput transactionInput) {

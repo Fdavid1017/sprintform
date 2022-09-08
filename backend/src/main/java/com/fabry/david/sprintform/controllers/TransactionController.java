@@ -5,6 +5,8 @@ import com.fabry.david.sprintform.helpers.TransactionInput;
 import com.fabry.david.sprintform.helpers.TransactionSearchInput;
 import com.fabry.david.sprintform.services.TransactionService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigInteger;
@@ -21,8 +23,8 @@ public class TransactionController {
     // GET
 
     @GetMapping(path = "")
-    public List<Transaction> getAllTransaction() {
-        return transactionService.findAllTransaction();
+    public Page<Transaction> getAllTransaction(Pageable pageable) {
+        return transactionService.findAllTransaction(pageable);
     }
 
     @GetMapping(path = "/{id}")
@@ -31,13 +33,13 @@ public class TransactionController {
     }
 
     @GetMapping(path = "/summary/{summary}")
-    public List<Transaction> getTransactionBySummary(@PathVariable("summary") String summary) {
-        return transactionService.findTransactionBySummary(summary);
+    public Page<Transaction> getTransactionBySummary(@PathVariable("summary") String summary, Pageable pageable) {
+        return transactionService.findTransactionBySummary(summary, pageable);
     }
 
     @GetMapping(path = "/search")
-    public List<Transaction> searchTransactions(@RequestBody TransactionSearchInput transactionSearchInput) {
-        return transactionService.searchTransaction(transactionSearchInput);
+    public Page<Transaction> searchTransactions(@RequestBody TransactionSearchInput transactionSearchInput, Pageable pageable) {
+        return transactionService.searchTransaction(transactionSearchInput, pageable);
     }
 
     // POST

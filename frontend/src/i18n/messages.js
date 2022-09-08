@@ -11,7 +11,7 @@ const messages = {
       clear: "Clear",
     },
     home: {
-      transactions: "Showing {show} transaction from the {total}",
+      transactions: "Page {current} of {total}",
       noTransaction: "No transaction found",
     },
     modal: {
@@ -47,7 +47,7 @@ const messages = {
       clear: "Törlés",
     },
     home: {
-      transactions: "{show} tranzakció mutatása a(z) {total}-ből",
+      transactions: "{current}. oldal a {total}-ból",
       noTransaction: "Nem található tranzakció",
     },
     modal: {

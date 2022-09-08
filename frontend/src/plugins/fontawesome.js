@@ -11,6 +11,8 @@ import {
   faPersonRunning,
   faGamepad,
   faFolder,
+  faChevronLeft,
+  faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function setup() {
@@ -25,6 +27,8 @@ export default function setup() {
     faCoins,
     faPersonRunning,
     faGamepad,
-    faFolder
+    faFolder,
+    faChevronLeft,
+    faChevronRight
   );
 }

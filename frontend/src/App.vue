@@ -19,6 +19,7 @@ import NavbarComponent from "@/components/NavbarComponent";
   background-color: $white;
   min-height: 100vh;
   color: $black;
+  padding-bottom: 50px;
 }
 
 .text-black {

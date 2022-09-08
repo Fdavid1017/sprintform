@@ -1,14 +1,14 @@
 const TransactionCategoryEnum = Object.freeze({
-  HOUSING: "HOUSING",
-  TRAVEL: "TRAVEL",
-  FOOD: "FOOD",
-  UTILITIES: "UTILITIES",
-  INSURANCE: "INSURANCE",
-  HEALTHCARE: "HEALTHCARE",
-  FINANCIAL: "FINANCIAL",
-  LIFESTYLE: "LIFESTYLE",
-  ENTERTAINMENT: "ENTERTAINMENT",
-  MISCELLANEOUS: "MISCELLANEOUS",
+  HOUSING: "housing",
+  TRAVEL: "travel",
+  FOOD: "food",
+  UTILITIES: "utilities",
+  INSURANCE: "insurance",
+  HEALTHCARE: "healthcare",
+  FINANCIAL: "financial",
+  LIFESTYLE: "lifestyle",
+  ENTERTAINMENT: "entertainment",
+  MISCELLANEOUS: "miscellaneous",
 });
 
 export default TransactionCategoryEnum;
