@@ -14,7 +14,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class Transaction {
     @Id
-    public BigInteger id;
+    public String id;
 
     public String summary;
     public TransactionCategory category;

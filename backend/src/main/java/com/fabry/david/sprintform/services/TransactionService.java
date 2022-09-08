@@ -85,6 +85,7 @@ public class TransactionService {
 
     public Transaction createTransaction(TransactionInput transactionInput) {
         Transaction transaction = modelMapper.map(transactionInput, Transaction.class);
+        transaction.setSummary(transaction.getSummary().trim());
         transaction.setPaid(new Date());
         transactionRepository.save(transaction);
 

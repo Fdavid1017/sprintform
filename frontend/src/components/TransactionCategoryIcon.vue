@@ -21,23 +21,23 @@ const props = defineProps({
 
 const icon = computed(() => {
   switch (props.category) {
-    case TransactionCategoryEnum.HOUSING:
+    case TransactionCategoryEnum.housing:
       return "fa-solid fa-house";
-    case TransactionCategoryEnum.TRAVEL:
+    case TransactionCategoryEnum.travel:
       return "fa-solid fa-car-side";
-    case TransactionCategoryEnum.FOOD:
+    case TransactionCategoryEnum.food:
       return "fa-solid fa-burger";
-    case TransactionCategoryEnum.UTILITIES:
+    case TransactionCategoryEnum.utilities:
       return "fa-solid fa-circle-question";
-    case TransactionCategoryEnum.INSURANCE:
+    case TransactionCategoryEnum.insurance:
       return "fa-solid fa-file";
-    case TransactionCategoryEnum.HEALTHCARE:
+    case TransactionCategoryEnum.healthcare:
       return "fa-solid fa-stethoscope";
-    case TransactionCategoryEnum.FINANCIAL:
+    case TransactionCategoryEnum.financial:
       return "fa-solid fa-coins";
-    case TransactionCategoryEnum.LIFESTYLE:
+    case TransactionCategoryEnum.lifestyle:
       return "fa-solid fa-person-running";
-    case TransactionCategoryEnum.ENTERTAINMENT:
+    case TransactionCategoryEnum.entertainment:
       return "fa-solid fa-circle-gamepad";
     default:
       return "fa-solid fa-folder";
