@@ -5,10 +5,7 @@ import com.fabry.david.sprintform.helpers.TransactionInput;
 import com.fabry.david.sprintform.helpers.TransactionSearchInput;
 import com.fabry.david.sprintform.repositories.TransactionRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
@@ -41,6 +38,8 @@ public class TransactionService {
     }
 
     public Page<Transaction> searchTransaction(TransactionSearchInput transactionSearchInput, Pageable pageable) {
+//        return transactionRepository.filterTransactions(transactionSearchInput.getSummary());
+
         Transaction t = new Transaction();
         t.setSummary(transactionSearchInput.getSummary());
         t.setCategory(transactionSearchInput.getCategory());
@@ -52,35 +51,38 @@ public class TransactionService {
                 .withMatcher("category", exact());
         Example<Transaction> exampleQuery = Example.of(t, matcher);
 
-        return transactionRepository.findAll(exampleQuery, pageable);
-
-//        if (transactionSearchInput.getSumMin() != null) {
-//            transactions = transactions
-//                    .stream()
-//                    .filter(transaction -> transaction.sum >= transactionSearchInput.getSumMin())
-//                    .collect(Collectors.toList());
-//        }
-//        if (transactionSearchInput.getSumMax() != null) {
-//            transactions = transactions
-//                    .stream()
-//                    .filter(transaction -> transaction.sum <= transactionSearchInput.getSumMax())
-//                    .collect(Collectors.toList());
-//        }
-//
-//        if (transactionSearchInput.getPaidStart() != null) {
-//            transactions = transactions
-//                    .stream()
-//                    .filter(transaction -> transaction.paid.getTime() >= transactionSearchInput.getPaidStart().getTime())
-//                    .collect(Collectors.toList());
-//        }
-//        if (transactionSearchInput.getPaidEnd() != null) {
-//            transactions = transactions
-//                    .stream()
-//                    .filter(transaction -> transaction.paid.getTime() <= transactionSearchInput.getPaidEnd().getTime())
-//                    .collect(Collectors.toList());
-//        }
+        List<Transaction> transactions = transactionRepository.findAll(exampleQuery);
 
 //        return transactions;
+        if (transactionSearchInput.getSumMin() != null) {
+            transactions = transactions
+                    .stream()
+                    .filter(transaction -> transaction.sum >= transactionSearchInput.getSumMin())
+                    .collect(Collectors.toList());
+        }
+        if (transactionSearchInput.getSumMax() != null) {
+            transactions = transactions
+                    .stream()
+                    .filter(transaction -> transaction.sum <= transactionSearchInput.getSumMax())
+                    .collect(Collectors.toList());
+        }
+
+        if (transactionSearchInput.getPaidStart() != null) {
+            transactions = transactions
+                    .stream()
+                    .filter(transaction -> transaction.paid.getTime() >= transactionSearchInput.getPaidStart().getTime())
+                    .collect(Collectors.toList());
+        }
+        if (transactionSearchInput.getPaidEnd() != null) {
+            transactions = transactions
+                    .stream()
+                    .filter(transaction -> transaction.paid.getTime() <= transactionSearchInput.getPaidEnd().getTime())
+                    .collect(Collectors.toList());
+        }
+
+        final int start = (int)pageable.getOffset();
+        final int end = Math.min((start + pageable.getPageSize()), transactions.size());
+        return new PageImpl<Transaction>(transactions.subList(start, end), pageable, transactions.size());
     }
 
     public Transaction createTransaction(TransactionInput transactionInput) {
