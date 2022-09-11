@@ -13,7 +13,7 @@ export async function getTransactions(page = 0, size = 5) {
 
   const response = data.data;
 
-  const transactionsData = new Pageable(
+  return new Pageable(
     response.content,
     response.last,
     response.totalPages,
@@ -22,8 +22,6 @@ export async function getTransactions(page = 0, size = 5) {
     response.size,
     response.numberOfElements
   );
-
-  return transactionsData;
 }
 
 export async function addTransaction(transaction) {
@@ -56,7 +54,6 @@ export async function getTransactionRanges() {
 }
 
 export async function searchTransaction(transactionFilter, page = 0, size = 5) {
-  console.log(transactionFilter);
   const data = await axios({
     url: `/transactions/search`,
     method: "GET",
@@ -74,7 +71,7 @@ export async function searchTransaction(transactionFilter, page = 0, size = 5) {
 
   const response = data.data;
 
-  const transactionsData = new Pageable(
+  return new Pageable(
     response.content,
     response.last,
     response.totalPages,
@@ -83,6 +80,4 @@ export async function searchTransaction(transactionFilter, page = 0, size = 5) {
     response.size,
     response.numberOfElements
   );
-
-  return transactionsData;
 }

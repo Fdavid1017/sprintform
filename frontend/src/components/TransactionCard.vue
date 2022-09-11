@@ -88,7 +88,7 @@ export default {
   transition: all 0.15s ease-out;
 
   &:hover {
-    box-shadow: 8px 8px 0px v-bind(color);
+    box-shadow: 8px 8px 0 v-bind(color);
   }
 
   .transaction-summary,

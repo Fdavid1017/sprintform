@@ -9,13 +9,13 @@
 @mixin panel($color: $black) {
   @include panel-base($color);
 
-  box-shadow: 5px 5px 0px $color;
+  box-shadow: 5px 5px 0 $color;
 }
 
 @mixin panel-small($color: $black) {
   @include panel-base($color);
 
-  box-shadow: 2px 2px 0px $color;
+  box-shadow: 2px 2px 0 $color;
 }
 
 @mixin button-primary($color: $black) {
@@ -33,6 +33,6 @@
   z-index: 1;
 
   &:hover {
-    box-shadow: 5px 5px 0px $color;
+    box-shadow: 5px 5px 0 $color;
   }
 }

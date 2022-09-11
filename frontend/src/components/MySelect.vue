@@ -19,7 +19,6 @@
   </div>
 </template>
 
-<!-- eslint-disable no-unused-vars -->
 <script setup>
 import { computed, defineProps, defineEmits } from "vue";
 
@@ -74,7 +73,7 @@ select {
 
   &:hover,
   &:focus {
-    box-shadow: 5px 5px 0px $black;
+    box-shadow: 5px 5px 0 $black;
   }
 }
 </style>

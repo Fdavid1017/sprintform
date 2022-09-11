@@ -69,7 +69,7 @@ const paginationItems = computed(() => {
   let l;
 
   for (let i = 1; i <= last; i++) {
-    if (i == 1 || i == last || (i >= left && i < right)) {
+    if (i === 1 || i === last || (i >= left && i < right)) {
       range.push(i);
     }
   }
@@ -121,7 +121,7 @@ function pageItemClicked(item) {
 
   &:hover {
     background-color: darken($white, 20%);
-    box-shadow: 5px 5px 0px $black;
+    box-shadow: 5px 5px 0 $black;
   }
 
   &.current {

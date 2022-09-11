@@ -56,12 +56,10 @@
   </div>
 </template>
 
-<!-- eslint-disable no-unused-vars -->
 <script setup>
 import { onMounted, ref } from "vue";
 import {
   addTransaction,
-  getTransactions,
   editTransaction,
   searchTransaction,
 } from "@/services/transactionService";
@@ -103,11 +101,10 @@ function searchTransactions(tf) {
 }
 
 function pageChange(page) {
-  searchTransaction(filter, page, pageSize);
+  loadTransactions(page, pageSize);
 }
 
 function transactionAdd(transaction) {
-  console.log(transaction);
   if (transaction.id) {
     // Edit transaction
     editTransaction(transaction).then((data) => {
@@ -122,7 +119,7 @@ function transactionAdd(transaction) {
   }
 
   // Add transaction
-  addTransaction(transaction).then((data) => {
+  addTransaction(transaction).then(() => {
     loadTransactions(0, transactionsData.value.size);
   });
 }
