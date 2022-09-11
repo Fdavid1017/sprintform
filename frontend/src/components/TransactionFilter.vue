@@ -26,6 +26,7 @@
               :enable-time-picker="false"
               class="date-picker"
               uid="date-range-picker"
+              :locale="$i18n.locale"
               range
               text-input
               clearable
