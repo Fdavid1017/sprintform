@@ -3,7 +3,7 @@
     <div class="spinner-border" role="status"></div>
   </div>
 
-  <div v-else class="container">
+  <div class="container">
     <div v-if="hasError" class="text-danger text-center fw-bold fs-5">
       {{ $t("error.wentWrong") }} {{ $t("error.tryAgain") }}
     </div>
@@ -99,7 +99,7 @@ function loadTransactions(page, size) {
 
 function searchTransactions(tf) {
   filter = tf;
-  console.log(filter);
+  loadTransactions(0, pageSize);
 }
 
 function pageChange(page) {

@@ -18,12 +18,12 @@ const props = defineProps({
   },
   label: {
     type: String,
-    required: true,
+    required: false,
     default: "",
   },
   id: {
     type: String,
-    required: true,
+    required: false,
     default: "input",
   },
   error: {

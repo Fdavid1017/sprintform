@@ -1,6 +1,7 @@
 package com.fabry.david.sprintform.controllers;
 
 import com.fabry.david.sprintform.domains.Transaction;
+import com.fabry.david.sprintform.enums.TransactionCategory;
 import com.fabry.david.sprintform.helpers.TransactionInput;
 import com.fabry.david.sprintform.helpers.TransactionRanges;
 import com.fabry.david.sprintform.helpers.TransactionSearchInput;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,7 +41,23 @@ public class TransactionController {
     }
 
     @GetMapping(path = "/search")
-    public Page<Transaction> searchTransactions(@RequestBody TransactionSearchInput transactionSearchInput, Pageable pageable) {
+    public Page<Transaction> searchTransactions(
+            Pageable pageable,
+            @RequestParam(required = false) String summary,
+            @RequestParam(required = false) TransactionCategory category,
+            @RequestParam(required = false) Float sumMin,
+            @RequestParam(required = false) Float sumMax,
+            @RequestParam(required = false) Optional<Long> paidStart,
+            @RequestParam(required = false) Optional<Long> paidEnd
+    ) {
+        TransactionSearchInput transactionSearchInput = new TransactionSearchInput(summary, category, sumMin, sumMax, null, null);
+
+        paidStart.ifPresent(aLong -> transactionSearchInput.setPaidStart(new Date(aLong)));
+        paidEnd.ifPresent(aLong -> transactionSearchInput.setPaidEnd(new Date(aLong)));
+
+        System.out.println(transactionSearchInput.getPaidStart());
+        System.out.println(transactionSearchInput.getPaidEnd());
+
         return transactionService.searchTransaction(transactionSearchInput, pageable);
     }
 

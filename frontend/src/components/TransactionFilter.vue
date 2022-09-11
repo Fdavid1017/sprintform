@@ -6,7 +6,7 @@
 
     <div class="filter-container">
       <div class="row w-100 mx-0 mb-4">
-        <div class="col-12 col-md-12 col-lg-3 d-flex align-items-end pb-4">
+        <div class="col-12 col-md-6 d-flex align-items-end pb-4">
           <my-input
             v-model="summaryFilter"
             :label="$t('form.summary')"
@@ -15,7 +15,7 @@
           />
         </div>
 
-        <div class="col-12 col-md-6 col-lg-3 d-flex align-items-end pb-4">
+        <div class="col-12 col-md-6 d-flex align-items-end pb-4">
           <div class="w-100">
             <label class="input-label" for="dp-input-date-range-picker">
               {{ $t("form.date") }}
@@ -34,7 +34,7 @@
           </div>
         </div>
 
-        <div class="col-12 col-md-6 col-lg-3 d-flex align-items-end pb-4">
+        <div class="col-12 col-md-6 d-flex align-items-end pb-4">
           <my-select
             v-model="category"
             :options="categories"
@@ -45,17 +45,35 @@
           />
         </div>
 
-        <div class="col-12 col-md-6 col-lg-3 d-flex align-items-end pb-4">
+        <div class="col-12 col-md-6 d-flex align-items-end pb-4">
           <div class="w-100">
-            <div class="input-label mb-5">
+            <div class="input-label">
               {{ $t("form.sum") }}
             </div>
-            <slider
-              v-model="sumRange"
-              :min="filterRange.sumMin"
-              :max="filterRange.sumMax"
-              class="mx-3"
-            />
+
+            <div
+              class="w-100 d-flex align-items-center justify-content-between"
+            >
+              <my-input
+                type="number"
+                v-model="sumRange[0]"
+                class="sum-range-input"
+              />
+
+              <div class="w-100 mx-4">
+                <slider
+                  v-model="sumRange"
+                  :min="filterRange.sumMin"
+                  :max="filterRange.sumMax"
+                />
+              </div>
+
+              <my-input
+                type="number"
+                v-model="sumRange[1]"
+                class="sum-range-input"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -112,9 +130,35 @@ function resetFilter() {
 }
 
 function search() {
-  emits("search", {
-    summary: summaryFilter.value,
-  });
+  const filterValues = {};
+
+  if (summaryFilter.value) {
+    filterValues["summary"] = summaryFilter.value;
+  }
+
+  if (category.value) {
+    filterValues["category"] = category.value;
+  }
+
+  if (sumRange.value?.length > 0) {
+    filterValues["sumMin"] = sumRange.value[0];
+    filterValues["sumMax"] = sumRange.value[1];
+  }
+
+  if (datePicker.value?.length > 0) {
+    if (datePicker.value[0].getTime() === datePicker.value[1].getTime()) {
+      datePicker.value[0].setHours(0, 0, 0, 0);
+      datePicker.value[1].setHours(23, 59, 59, 999);
+    } else {
+      datePicker.value[0].setHours(0, 0, 0, 0);
+      datePicker.value[1].setHours(0, 0, 0, 0);
+    }
+
+    filterValues["paidStart"] = datePicker.value[0].getTime();
+    filterValues["paidEnd"] = datePicker.value[1].getTime();
+  }
+
+  emits("search", filterValues);
 }
 
 onMounted(() => {

@@ -63,14 +63,12 @@ export async function searchTransaction(transactionFilter, page = 0, size = 5) {
     params: {
       page,
       size,
-    },
-    data: {
-      summary: "reggeli",
-      category: null,
-      sumMin: null,
-      sumMax: null,
-      paidStart: null,
-      paidEnd: null,
+      summary: transactionFilter.summary,
+      category: transactionFilter.category,
+      sumMin: transactionFilter.sumMin,
+      sumMax: transactionFilter.sumMax,
+      paidStart: transactionFilter.paidStart,
+      paidEnd: transactionFilter.paidEnd,
     },
   });
 
