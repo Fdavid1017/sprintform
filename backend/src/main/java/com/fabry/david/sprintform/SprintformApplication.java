@@ -14,6 +14,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Arrays;
+
 @EnableScheduling
 @SpringBootApplication
 @RequiredArgsConstructor
@@ -37,12 +39,9 @@ public class SprintformApplication implements ApplicationRunner {
 
             try {
                 Transaction[] transactions = loadBaseTransactions();
-
-                for (Transaction transaction : transactions) {
-                    transactionRepository.save(transaction);
-                }
+                transactionRepository.saveAll(Arrays.asList(transactions));
             } catch (com.fasterxml.jackson.core.JsonProcessingException e) {
-                System.out.println("Error while loading base datas");
+                System.out.println("Error while loading base data");
                 System.out.println("==============================");
                 e.printStackTrace();
             }

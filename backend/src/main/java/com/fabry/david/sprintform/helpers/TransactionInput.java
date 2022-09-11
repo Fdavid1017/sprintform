@@ -4,9 +4,6 @@ import com.fabry.david.sprintform.enums.TransactionCategory;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-
-import java.util.Date;
 
 @Data
 @NoArgsConstructor

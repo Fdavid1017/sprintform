@@ -11,9 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigInteger;
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -54,9 +52,6 @@ public class TransactionController {
 
         paidStart.ifPresent(aLong -> transactionSearchInput.setPaidStart(new Date(aLong)));
         paidEnd.ifPresent(aLong -> transactionSearchInput.setPaidEnd(new Date(aLong)));
-
-        System.out.println(transactionSearchInput.getPaidStart());
-        System.out.println(transactionSearchInput.getPaidEnd());
 
         return transactionService.searchTransaction(transactionSearchInput, pageable);
     }
