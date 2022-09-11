@@ -2,6 +2,7 @@ package com.fabry.david.sprintform.services;
 
 import com.fabry.david.sprintform.domains.Transaction;
 import com.fabry.david.sprintform.helpers.TransactionInput;
+import com.fabry.david.sprintform.helpers.TransactionRanges;
 import com.fabry.david.sprintform.helpers.TransactionSearchInput;
 import com.fabry.david.sprintform.repositories.TransactionRepository;
 import lombok.RequiredArgsConstructor;
@@ -38,8 +39,6 @@ public class TransactionService {
     }
 
     public Page<Transaction> searchTransaction(TransactionSearchInput transactionSearchInput, Pageable pageable) {
-//        return transactionRepository.filterTransactions(transactionSearchInput.getSummary());
-
         Transaction t = new Transaction();
         t.setSummary(transactionSearchInput.getSummary());
         t.setCategory(transactionSearchInput.getCategory());
@@ -53,7 +52,6 @@ public class TransactionService {
 
         List<Transaction> transactions = transactionRepository.findAll(exampleQuery);
 
-//        return transactions;
         if (transactionSearchInput.getSumMin() != null) {
             transactions = transactions
                     .stream()
@@ -80,9 +78,20 @@ public class TransactionService {
                     .collect(Collectors.toList());
         }
 
-        final int start = (int)pageable.getOffset();
+        final int start = (int) pageable.getOffset();
         final int end = Math.min((start + pageable.getPageSize()), transactions.size());
         return new PageImpl<Transaction>(transactions.subList(start, end), pageable, transactions.size());
+    }
+
+    public TransactionRanges getRanges() {
+        TransactionRanges transactionRanges = new TransactionRanges();
+
+        transactionRanges.setSumMin(transactionRepository.findFirstByOrderBySumAsc().getSum());
+        transactionRanges.setSumMax(transactionRepository.findFirstByOrderBySumDesc().getSum());
+        transactionRanges.setPaidMin(transactionRepository.findFirstByOrderByPaidAsc().getPaid());
+        transactionRanges.setPaidMax(transactionRepository.findFirstByOrderByPaidDesc().getPaid());
+
+        return transactionRanges;
     }
 
     public Transaction createTransaction(TransactionInput transactionInput) {

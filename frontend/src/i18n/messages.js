@@ -6,9 +6,10 @@ const messages = {
     },
     form: {
       search: "Search",
-      min: "Minimum",
-      max: "Maximum",
+      summary: "Summary",
       clear: "Clear",
+      date: "Date",
+      sum: "Sum",
     },
     home: {
       transactions: "Page {current} of {total}",
@@ -23,6 +24,7 @@ const messages = {
       amount: "Amount",
     },
     category: {
+      category: "Category",
       housing: "Housing",
       travel: "Travel",
       food: "Food",
@@ -34,6 +36,12 @@ const messages = {
       entertainment: "Entertainment",
       miscellaneous: "Miscellaneous",
     },
+    datePicker: {
+      today: "Today",
+      thisMonth: "This month",
+      lastMonth: "Last month",
+      thisYear: "This year",
+    },
   },
   hu: {
     error: {
@@ -42,9 +50,10 @@ const messages = {
     },
     form: {
       search: "Keresés",
-      min: "Minimum",
-      max: "Maximum",
+      summary: "Összegzés",
       clear: "Törlés",
+      date: "Dátum",
+      sum: "Összeg",
     },
     home: {
       transactions: "{current}. oldal a {total}-ból",
@@ -59,6 +68,7 @@ const messages = {
       amount: "Összeg",
     },
     category: {
+      category: "Kategória",
       housing: "Lakás",
       travel: "Utazás",
       food: "Étel",
@@ -69,6 +79,12 @@ const messages = {
       lifestyle: "Életvitel",
       entertainment: "Szórakozás",
       miscellaneous: "Egyéb",
+    },
+    datePicker: {
+      today: "Ma",
+      thisMonth: "Ez a hónap",
+      lastMonth: "Előző hónap",
+      thisYear: "Ez az év",
     },
   },
 };

@@ -60,7 +60,7 @@ input {
 
   &:hover,
   &:focus {
-    box-shadow: 5px 5px 0px $black;
+    box-shadow: 5px 5px 0 $black;
   }
 }
 
@@ -74,7 +74,7 @@ input {
 
     &:hover,
     &:focus {
-      box-shadow: 5px 5px 0px $error;
+      box-shadow: 5px 5px 0 $error;
     }
   }
 }

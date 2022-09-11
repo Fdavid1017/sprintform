@@ -16,4 +16,12 @@ public interface TransactionRepository extends MongoRepository<Transaction, Stri
     public Optional<Transaction> findById(String id);
 
     public Page<Transaction> findBySummaryLike(String summary, Pageable pageable);
+
+    public Transaction findFirstByOrderBySumAsc();
+
+    public Transaction findFirstByOrderBySumDesc();
+
+    public Transaction findFirstByOrderByPaidAsc();
+
+    public Transaction findFirstByOrderByPaidDesc();
 }

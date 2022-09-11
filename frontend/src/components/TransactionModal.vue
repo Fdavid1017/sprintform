@@ -64,7 +64,7 @@
             <my-select
               v-model="values.category"
               :options="categories"
-              label="Category"
+              :label="$t('category.category')"
               id="category-input"
               required
             />

@@ -2,6 +2,7 @@ package com.fabry.david.sprintform.controllers;
 
 import com.fabry.david.sprintform.domains.Transaction;
 import com.fabry.david.sprintform.helpers.TransactionInput;
+import com.fabry.david.sprintform.helpers.TransactionRanges;
 import com.fabry.david.sprintform.helpers.TransactionSearchInput;
 import com.fabry.david.sprintform.services.TransactionService;
 import lombok.RequiredArgsConstructor;
@@ -40,6 +41,11 @@ public class TransactionController {
     @GetMapping(path = "/search")
     public Page<Transaction> searchTransactions(@RequestBody TransactionSearchInput transactionSearchInput, Pageable pageable) {
         return transactionService.searchTransaction(transactionSearchInput, pageable);
+    }
+
+    @GetMapping(path = "/ranges")
+    public TransactionRanges getRanges() {
+        return transactionService.getRanges();
     }
 
     // POST

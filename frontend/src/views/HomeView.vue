@@ -8,7 +8,7 @@
       {{ $t("error.wentWrong") }} {{ $t("error.tryAgain") }}
     </div>
 
-    <transaction-filter v-model="filter" class="mb-5" />
+    <transaction-filter class="mb-5" @search="searchTransactions" />
 
     <div
       class="d-flex flex-column flex-sm-row align-items-center justify-content-between mb-3"
@@ -63,6 +63,7 @@ import {
   addTransaction,
   getTransactions,
   editTransaction,
+  searchTransaction,
 } from "@/services/transactionService";
 import TransactionCard from "@/components/TransactionCard";
 import TransactionFilter from "@/components/TransactionFilter";
@@ -72,15 +73,10 @@ import DataPagination from "@/components/DataPagination.vue";
 const transactionsData = ref([]);
 const isLoading = ref(true);
 const hasError = ref(false);
-const filter = ref({
-  text: "",
-  min: null,
-  max: null,
-});
-
 const transactionToEdit = ref(undefined);
-
 const pageSize = 5;
+
+let filter = {};
 
 onMounted(() => {
   loadTransactions(0, pageSize);
@@ -89,7 +85,7 @@ onMounted(() => {
 function loadTransactions(page, size) {
   isLoading.value = true;
 
-  getTransactions(page, size)
+  searchTransaction(filter, page, size)
     .then((data) => {
       transactionsData.value = data;
     })
@@ -101,8 +97,13 @@ function loadTransactions(page, size) {
     });
 }
 
+function searchTransactions(tf) {
+  filter = tf;
+  console.log(filter);
+}
+
 function pageChange(page) {
-  loadTransactions(page, pageSize);
+  searchTransaction(filter, page, pageSize);
 }
 
 function transactionAdd(transaction) {
@@ -124,17 +125,6 @@ function transactionAdd(transaction) {
   addTransaction(transaction).then((data) => {
     loadTransactions(0, transactionsData.value.size);
   });
-
-  // const transactionValue = {
-  //   id: Math.round(Math.random() * 1000000),
-  //   summary: transaction.summary,
-  //   category: TransactionCategoryEnum[transaction.category],
-  //   sum: transaction.sum,
-  //   currency: transaction.currency,
-  //   paid: new Date(),
-  // };
-
-  // transactions.value.push(transactionValue);
 }
 </script>
 
